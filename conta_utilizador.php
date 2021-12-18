@@ -117,7 +117,6 @@ include 'basedados.h';
            }
            while($row = mysqli_fetch_array($retval)){
              $username = $row['username'];
-             $password = $row['password'];
              $nome = $row['nome'];
              $morada = $row['morada'];
              $email = $row['email'];
@@ -129,16 +128,11 @@ include 'basedados.h';
           ?>
           <form method="GET" action="editar.php">
              <div class="row">
-               <div class="col-6">
+               <div class="col-12">
                  <div class="mb-4">
                    <input type="text" placeholder="Utilizador" class="form-control" id="Utilizador" name="username" value="<?php echo $username ?>">
                 </div>
              </div>
-             <div class="col-6">
-              <div class="mb-4">
-                <input type="password" placeholder="Password" class="form-control" id="Utilizador" name="password" value="<?php echo $password ?>">
-             </div>
-          </div>
           <!-- Force next columns to break to new line -->
           <div class="w-100"></div>
           <div class="col-6">
