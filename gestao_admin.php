@@ -143,9 +143,9 @@
                               <td>$nome_utilizador</td>
                               <td>$morada</td>
                               <td>$contacto</td>
-                              <td> <a href='validar_utilizador_administrador.php?username=".$id_utilizador."'><button type='button' class='btn btn-warning'>Editar</button></a> </td>
-                              <td> <a href='validar_utilizador_administrador.php?username=".$id_utilizador."'><button type='button' class='btn btn-danger'>Apagar</button></a> </td>
-                              <td> <a href='validar_utilizador_administrador.php?username=".$id_utilizador."'><button type='button' class='btn btn-info'>Validar</button></a> </td>
+                              <td> <a href='editar.php?username=".$id_encomenda."'><button type='button' class='btn btn-warning'>Editar</button></a> </td>
+                              <td> <a href='remover.php?username=".$id_encomenda."&action=2'><button type='button' class='btn btn-danger'>Apagar</button></a> </td>
+                              <td> <a href='validar.php?username=".$id_encomenda."'><button type='button' class='btn btn-info'>Validar</button></a> </td>
                               </tr>";
                             }
                             echo "</tbody></table>";
@@ -167,7 +167,8 @@
                       <div class="row align-items-center">
                         <div class="col-12">
 
-                          <form method="GET" action="registar_por_admin.php">
+                          <form method="GET" action="registar.php">
+                            <input type="hidden" name="action" value="2">
                             <div class="row">
                               <div class="col-6">
                                 <div class="mb-4">
@@ -271,6 +272,7 @@
                           $contador_linhas = 0;
                           while($row = mysqli_fetch_array($retval)){
 
+                            $id_utilizador = $row['id_utilizador'];
                             $username = $row['username'];
                             $nome = $row['nome'];
                             $morada= $row['morada'];
@@ -291,7 +293,7 @@
                             <td>$datanascimento</td>
                             <td>$tipo_utilizador</td>
                             <td> <a href='editar_utilizador_administrador.php?username=".$username."&descricao=".$tipo_utilizador."'><button type='button' class='btn btn-warning'>Editar</button></a> </td>
-                            <td> <a href='apagar_utilizador_administrador.php?username=".$username."'><button type='button' class='btn btn-danger'>Apagar</button></a> </td>";
+                            <td> <a href='remover.php?username=".$id_utilizador."&action=1'><button type='button' class='btn btn-danger'>Apagar</button></a> </td>";
                             if ($tipo_utilizador_numero == 3) {
                               echo "<td> <a href='validar_utilizador_administrador.php?username=".$username."'><button type='button' class='btn btn-info'>Validar</button></a> </td>";
                             }else{

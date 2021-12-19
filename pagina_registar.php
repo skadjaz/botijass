@@ -63,6 +63,7 @@
         <div class="row align-items-center">
           <div class="col-6">
             <form method="GET" action="registar.php">
+              <input type="hidden" name="action" value="1">
               <div class="row">
                 <div class="col-6">
                   <div class="mb-4">

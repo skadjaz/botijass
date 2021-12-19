@@ -33,40 +33,130 @@ include 'basedados.h';
 </head>
 <body id="message">
 <?php 
+$action = $_GET['action'];
 
+if ($action == 1) {
+	$username = $_GET["username"];
+	$nome = $_GET["nome"];
+	$morada = $_GET["morada"];
+	$email = $_GET["email"];
+	$nr_telefone = $_GET["nr_telefone"];
+	$datanascimento = $_GET["datanascimento"];
+
+
+	$update = "UPDATE utilizador SET 
+		nome = '$nome', 
+		morada = '$morada', 
+		email = '$email', 
+		nr_telefone = '$nr_telefone', 
+		datanascimento = '$datanascimento'
+	WHERE  
+		username = '$username'";
+	$atualizar = mysqli_query($conn , $update);
+	if (mysqli_affected_rows ($conn) == 1){
+	echo'<div class="container" id="mensagem"> 
+			<div class="alert alert-success text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">Os seus dados foram atualizador com sucesso</div>
+		</div>
+		<script> setTimeout(function () { window.location.href = "index.php"; }, 1500)</script>';
+	$_SESSION['nome'] = $nome;
+	$_SESSION['username'] = $username;
+}else if (mysqli_affected_rows ($conn) == 0){
+		echo'<div class="container" id="mensagem"> 
+			<div class="alert alert-danger text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">Não foi possivel actualizar os seus dados</div>
+		</div>
+		<script> setTimeout(function () { window.location.href = "conta_utilizador.php"; }, 1500)</script>';
+}
+}elseif($action == 2){
+
+	$id_encomenda = $_SESSION['id_encomenda'];
+	$data_encomenda = $_GET["data_encomenda"];
+	$hora_encomenda = $_GET["hora_encomenda"];
+	$produto = $_GET["produto"];
+	$quantidade = $_GET["quantidade"];
+	$morada_entrega = $_GET["morada_entrega"];
+
+
+if ($morada_entrega == "" && $quantidade >= 1) {
+	$editar_encomenda = "UPDATE encomenda SET " .
+	"data_encomenda = '$data_encomenda', " .
+	"hora_encomenda = '$hora_encomenda', " .
+	"produto = '$produto', " . 
+	"quantidade = '$quantidade', " .
+	"morada_entrega = '".$_SESSION['morada']."' " .
+	"WHERE id_encomenda = '".$_SESSION['id_encomenda']."' ";
+	$executar = mysqli_query($conn , $editar_encomenda);	
+
+	if (mysqli_affected_rows ($conn) == 1){
+		echo'<div class="container" id="mensagem"> 
+			<div class="alert alert-success text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">A sua encomenda foi alterada com sucesso</div>
+		</div>
+		<script> setTimeout(function () { window.location.href = "encomendas_cliente.php"; }, 1500)</script>';
+	}else{
+		echo'<div class="container" id="mensagem"> 
+			<div class="alert alert-success text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">Não foi possivel alterar a sua encomenda</div>
+		</div>
+		<script> setTimeout(function () { window.location.href = "encomendas_cliente.php"; }, 11500)</script>';
+	}
+}elseif($quantidade >= 1){
+	$editar_encomenda = "UPDATE encomenda SET " .
+	"data_encomenda = '$data_encomenda', " .
+	"hora_encomenda = '$hora_encomenda', " .
+	"produto = '$produto', " . 
+	"quantidade = '$quantidade', " .
+	"morada_entrega = '$morada_entrega' " .
+	"WHERE id_encomenda = '".$_SESSION['id_encomenda']."' ";
+	$executar = mysqli_query($conn , $editar_encomenda);	
+
+	if (mysqli_affected_rows ($conn) == 1){
+		echo'<div class="container" id="mensagem"> 
+			<div class="alert alert-success text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">A sua encomenda foi alterada com sucesso</div>
+		</div>
+		<script> setTimeout(function () { window.location.href = "encomendas_cliente.php"; }, 1500)</script>';
+	}else{
+		echo'<div class="container" id="mensagem"> 
+			<div class="alert alert-success text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">Não foi possivel alterar a sua encomenda</div>
+		</div>
+		<script> setTimeout(function () { window.location.href = "encomendas_cliente.php"; }, 11500)</script>';
+	}
+}else{
+	echo'<div class="container" id="mensagem"> 
+			<div class="alert alert-success text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">Não foi possivel alterar a sua encomenda</div>
+		</div>
+		<script> setTimeout(function () { window.location.href = "encomendas_cliente.php"; }, 11500)</script>';
+}
+}elseif($action == 3){
 
 $username = $_GET["username"];
 $nome = $_GET["nome"];
 $morada = $_GET["morada"];
 $email = $_GET["email"];
 $nr_telefone = $_GET["nr_telefone"];
-$datanascimento = $_GET["datanascimento"];
-
+$dataNascimento = $_GET["dataNascimento"];
+$tipo_utilizador = $_GET["tipo_utilizador"];
 
 $update = "UPDATE utilizador SET 
 nome = '$nome', 
 morada = '$morada', 
 email = '$email', 
 nr_telefone = '$nr_telefone', 
-datanascimento = '$datanascimento'
+datanascimento = '$dataNascimento',
+tipo_utilizador = '$tipo_utilizador'
 WHERE  
 username = '$username'";
 
-$atualizar = mysqli_query($conn , $update);
+$retval1 = mysqli_query($conn , $update);
 
 if (mysqli_affected_rows ($conn) == 1){
-
 	echo'<div class="container" id="mensagem"> 
-			<div class="alert alert-success text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">A sua encomenda foi alterada com sucesso</div>
+			<div class="alert alert-success text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">Dados do utilizador atualizados com sucesso</div>
 		</div>
-		<script> setTimeout(function () { window.location.href = "index.php"; }, 1500)</script>';
-
-
-	$_SESSION['nome'] = $nome;
-	$_SESSION['username'] = $username;
+		<script> setTimeout(function () { window.location.href = "gestao_admin.php"; }, 1500)</script>';
 }else if (mysqli_affected_rows ($conn) == 0){
-	echo ('Erro');
-	header ("refresh:1; url=editar.php");
+	echo'<div class="container" id="mensagem"> 
+			<div class="alert alert-success text-center" style="border-radius: 50px; padding: 20px" id="flash-msg">Não foi possivel atualizar os dados do utilizador</div>
+		</div>
+		<script> setTimeout(function () { window.location.href = "gestao_admin.php"; }, 1500)</script>';
+}
 }
 ?>
 </body>

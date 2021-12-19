@@ -104,7 +104,8 @@
                         <div class="row align-items-center">
                           <div class="col-12">
 
-                            <form method="GET" action="efetuar_encomenda.php">
+                            <form method="GET" action="registar.php">
+                              <input type="hidden" name="action" value="4">
                               <div class="row">
                                 <div class="col-6">
                                   <div class="mb-4">
@@ -217,7 +218,7 @@
                                   <td>".$row['preco']*$quantidade." €</td>
                                   <td>".$row['preco']*$quantidade+$row['preco_entrega']." €</td>
                                   <td> <a href='editar_encomenda.php?id_encomenda=".$id_encomenda."'><button type='button' class='btn btn-warning'>Editar</button></a> </td>
-                                  <td> <a href='validar_utilizador_administrador.php?username=".$id_utilizador."'><button type='button' class='btn btn-danger'>Desmarcar</button></a> </td>
+                                  <td> <a href='remover.php?username=".$id_encomenda."&action=3'><button type='button' class='btn btn-danger'>Desmarcar</button></a> </td>
                                   </tr>";
                                 }
                               }

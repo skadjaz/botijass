@@ -128,6 +128,7 @@ include 'basedados.h';
           ?>
           <form method="GET" action="editar.php">
              <div class="row">
+              <input type="hidden" name="action" value="1">
                <div class="col-12">
                  <div class="mb-4">
                    <input type="text" placeholder="Utilizador" class="form-control" id="Utilizador" name="username" value="<?php echo $username ?>">

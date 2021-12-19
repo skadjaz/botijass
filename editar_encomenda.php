@@ -101,7 +101,8 @@
                     }
                     mysqli_close($conn);
                     ?>
-                    <form method="GET" action="editar_encomenda_script.php">
+                    <form method="GET" action="editar.php">
+                      <input type="hidden" name="action" value="2">
                       <div class="row">
                         <div class="col-6">
                           <div class="mb-4">

@@ -106,23 +106,19 @@
              $morada = $row['morada'];
              $email = $row['email'];
              $nr_telefone= $row['nr_telefone'];
-             $datanascimento= $row['datanascimento'];
+             $dataNascimento= $row['datanascimento'];
              $tipo_utilizador= $row['tipo_utilizador'];
            }
            mysqli_close($conn);
            ?>
-           <form method="GET" action="editar_modo_admin.php">
+           <form method="GET" action="editar.php">
+            <input type="hidden" name="action" value="3">
              <div class="row">
-               <div class="col-6">
+               <div class="col-12">
                  <div class="mb-4">
                    <input type="text" placeholder="Utilizador" class="form-control" id="Utilizador" name="username" value="<?php echo $username ?>">
                  </div>
                </div>
-               <div class="col-6">
-                <div class="mb-4">
-                  <input type="password" placeholder="Password" class="form-control" id="Utilizador" name="password" value="<?php echo $password ?>">
-                </div>
-              </div>
               <!-- Force next columns to break to new line -->
               <div class="w-100"></div>
               <div class="col-6">
@@ -138,7 +134,7 @@
             <div class="w-100"></div>
             <div class="col-6">
              <div class="mb-4">
-               <input type="date" class="form-control" id="dataNascimento" name="datanascimento" placeholder="DataNascimento" value="<?php echo $datanascimento ?>">
+               <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" placeholder="DataNascimento" value="<?php echo $dataNascimento ?>">
              </div>
            </div>
            <div class="col-6">
