@@ -5,11 +5,9 @@ include 'basedados.h';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-
 	<title>PWBD Botijas - 
 		<?php 
 		if (!isset($_SESSION['username'])){
@@ -21,14 +19,11 @@ include 'basedados.h';
 	</title>
 	<meta content="" name="description">
 	<meta content="" name="keywords">
-
 	<!-- Favicons -->
 	<link href="assets/img/favicon.png" rel="icon">
 	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
 	<!-- Template CSS Files -->
 	<link href="assets/vendor/aos/aos.css" rel="stylesheet">
 	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,13 +32,10 @@ include 'basedados.h';
 	<link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 	<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
 	<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
 	<!-- Ficheiro CSS File -->
 	<link href="assets/css/style.css" rel="stylesheet">
 </head>
-
 <body>
-
 	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top">
 		<div class="container-fluid">
@@ -55,8 +47,7 @@ include 'basedados.h';
 					<nav id="navbar" class="navbar">
 						<ul>
 							<li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-							<li><a class="nav-link scrollto " href="#portfolio">Produto</a></li>
-							<li><a class="nav-link scrollto" href="#services">Serviços</a></li>
+							<li><a class="nav-link scrollto " href="#produtos">Produto</a></li>
 							<li><a class="nav-link scrollto" href="#about">Sobre Nós</a></li>
 							<?php
 							if (!isset($_SESSION['username'])){
@@ -65,15 +56,17 @@ include 'basedados.h';
 								if ($_SESSION['estado'] == "online") {
 									switch ($_SESSION['tipoNr']) {
 										case '1':
-										echo('<li><a class="nav-link scrollto" href="gestao_admin.php">Gestao</a></li>');
+										echo('<li><a class="nav-link scrollto" href="gestao_admin.php">Gestão</a></li>');
 										break;
 										case '2':
 										echo('<li><a class="nav-link scrollto" href="encomendas_cliente.php">Encomendar Gás</a></li>');
 										break;
+										case '3':
+										echo('<li><a>Bem vindo, '.$_SESSION['tipo_utilizador'].', '.$_SESSION['nome'].'</a></li>');
+										break;
 										case '4':
 										echo('<li><a class="nav-link scrollto" href="consultar_encomendas.php">As minhas encomendas</a></li>');
 										break;
-
 										default:
 										echo('<li><a href="registar.html">Criar conta</a></li>');
 										break;
@@ -104,80 +97,60 @@ include 'basedados.h';
 			</div>
 		</div>
 	</header><!-- End Header -->
-
 	<!-- ======= Hero Section ======= -->
 	<section id="hero" class="d-flex align-items-center">
-
 		<div class="container" data-aos="zoom-out" data-aos-delay="100">
 			<div class="row">
 				<div class="col-md-12">
 					<?php
 					if (!isset($_SESSION['estado'])){
 						echo('<h1>Bem-Vindo</h1>');
-						echo('<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>');
 					}else{
 						if ($_SESSION['estado'] == "online") {
-								echo('<h1>Bem-Vindo '.$_SESSION['nome'].'</h1>');
-								echo('<h2 class="text-center">'.$_SESSION['tipo_utilizador'].'</h2>');
-								echo('<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>');
-							}
+							echo('<h1>Bem-Vindo '.$_SESSION['nome'].'</h1>');
+							echo('<h2 class="text-center">'.$_SESSION['tipo_utilizador'].'</h2>');
 						}
+					}
 					?>
 				</div>
-				<a href="#about" class="btn-get-started scrollto">Get Started</a>
 			</div>
 		</div>
-
 	</section><!-- End Hero -->
-
 	<main id="main">
 		<!-- ======= Counts Section ======= -->
-		<section id="counts" class="counts">
-			<div class="container" data-aos="fade-up">
-
+		<section id="produtos" class="counts">
+			<div class="container-fluid" data-aos="fade-up">
 				<div class="row">
+					<?php 
+										
+											$query = "SELECT * FROM produto";
+											$produtos = mysqli_query($conn, $query);
+											if(! $produtos ){
+												die('Could not get data: ' . mysqli_error($conn));
+											}
+											while($row = mysqli_fetch_array($produtos)){
+												$id_produto = $row['id_produto'];
+												$nome_produto = $row['nome_produto'];
+												$peso= $row['peso'];
+												$preco = $row['preco'];
+												$preco_entrega = $row['preco_entrega'];
 
-					<div class="col-lg-3 col-md-6">
-						<div class="count-box">
-							<i class="bi bi-emoji-smile"></i>
-							<h2>Services</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="count-box">
-							<i class="bi bi-emoji-smile"></i>
-							<h2>Services</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="count-box">
-							<i class="bi bi-emoji-smile"></i>
-							<h2>Services</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="count-box">
-							<i class="bi bi-emoji-smile"></i>
-							<h2>Services</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						</div>
-					</div>
-
-
+												echo ('<div class="col-lg-3 col-md-4" style="margin-top:50px;">
+																<div class="count-box">
+																	<div><img src="assets/img/favicon.png" style="width:50px;height:50px;"></div>
+																	<h2>'.$nome_produto.'&nbsp;&nbsp;'.$peso.'Kg</h2>
+																	<p><label><strong>Preço:</strong></label>&nbsp;&nbsp;'.$preco.'€</p>
+																	<p><label><strong>Preço entrega:</strong></label>&nbsp;&nbsp;'.$preco_entrega.'€</p>
+																</div>
+															</div>');
+											}
+											?>   
 				</div>
-
 			</div>
 		</section><!-- End Counts Section -->
-
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services section-bg ">
 			<div class="container" data-aos="fade-up">
-
-
-
 				<div class="row">
 					<div class="col-md-6">
 						<h2>Services</h2>
@@ -191,36 +164,17 @@ include 'basedados.h';
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</section><!-- End Services Section -->
-
-
-		<!-- ======= Team Section ======= -->
-		<section id="team" class="team section-bg">
-			<div class="container" data-aos="fade-up">
-
-				<div class="section-title">
-					<h2>Team</h2>
-					<p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.</p>
-				</div>
-
-
-			</section><!-- End Team Section -->
-
 			<!-- ======= Contact Section ======= -->
 			<section id="contact" class="contact">
 				<div class="container" data-aos="fade-up">
-
 					<div class="section-title">
 						<h2>Contact</h2>
 						<p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.</p>
 					</div>
-
 					<div class="row" data-aos="fade-up" data-aos-delay="100">
-
 						<div class="col-lg-6">
-
 							<div class="row">
 								<div class="col-md-12">
 									<div class="info-box">
@@ -244,9 +198,7 @@ include 'basedados.h';
 									</div>
 								</div>
 							</div>
-
 						</div>
-
 						<div class="col-lg-6">
 							<form action="forms/contact.php" method="post" role="form" class="php-email-form">
 								<div class="row">
@@ -271,28 +223,19 @@ include 'basedados.h';
 								<div class="text-center"><button type="submit">Send Message</button></div>
 							</form>
 						</div>
-
 					</div>
-
 				</div>
 			</section><!-- End Contact Section -->
-
 		</main><!-- End #main -->
-
 		<!-- ======= Footer ======= -->
 		<footer id="footer">
 			<div class="container d-md-flex py-4">
-
 				<div class="me-md-auto text-center text-md-start">
 					<div class="copyright">
 						&copy; Copyright <strong><span>Presento</span></strong>. All Rights Reserved
 					</div>
-					<div class="credits">
-						<!-- All the links in the footer should remain intact. -->
-						<!-- You can delete the links only if you purchased the pro version. -->
-						<!-- Licensing information: https://bootstrapmade.com/license/ -->
-						<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/presento-bootstrap-corporate-template/ -->
-						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+					<div class="s">
+						<p style="color: black;">Designed by <a href="">Luís Caio</a></p>
 					</div>
 				</div>
 				<div class="social-links text-center text-md-end pt-3 pt-md-0">
@@ -304,9 +247,7 @@ include 'basedados.h';
 				</div>
 			</div>
 		</footer><!-- End Footer -->
-
 		<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
 		<!-- Vendor JS Files -->
 		<script src="assets/vendor/aos/aos.js"></script>
 		<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -315,10 +256,7 @@ include 'basedados.h';
 		<script src="assets/vendor/php-email-form/validate.js"></script>
 		<script src="assets/vendor/purecounter/purecounter.js"></script>
 		<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
 		<!-- Template Main JS File -->
 		<script src="assets/js/main.js"></script>
-
 	</body>
-
-	</html>}}}
+	</html>

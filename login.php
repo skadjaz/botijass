@@ -32,5 +32,7 @@
 			// Redirecionar para a página anterior
 			header ("Refresh:0; URL=login.html");
 		}	
+	}else{
+		header ("Refresh:0; URL=index.html");
 	}
 ?>
